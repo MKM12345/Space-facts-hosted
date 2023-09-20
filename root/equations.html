@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astrophysics Equations</title>
+</head>
+<body>
+    <h1>Astrophysics Equations</h1>
+    <label for="equationInput">Enter an astrophysics equation:</label>
+    <input type="text" id="equationInput">
+    <button id="submitButton">Submit</button>
+    <div id="equationInfo"></div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+    const equationInput = document.getElementById('equationInput');
+    const submitButton = document.getElementById('submitButton');
+    const equationInfo = document.getElementById('equationInfo');
+
+    submitButton.addEventListener('click', function () {
+        const equation = equationInput.value.trim();
+        if (equation !== '') {
+            fetchEquationInfo(equation);
+        }
+    });
+
+    function fetchEquationInfo(equation) {
+        // Replace with the path to your JSON file.
+        const jsonFilePath = 'equations.json';
+
+        fetch(jsonFilePath)
+            .then(response => response.json())
+            .then(data => {
+                const equationData = data[equation];
+                if (equationData) {
+                    displayEquationInfo(equationData);
+                } else {
+                    equationInfo.innerHTML = '<p>Equation not found.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                equationInfo.innerHTML = '<p>Error fetching data.</p>';
+            });
+    }
+
+    function displayEquationInfo(equationData) {
+        equationInfo.innerHTML = `
+            <h2>${equationData.author}</h2>
+            <h3>Steps to Solve:</h3>
+            <p>${equationData.steps}</p>
+            <h3>Answers:</h3>
+            <p>${equationData.answers}</p>
+            <h3>More Information:</h3>
+            <p>${equationData.more}</p>
+        `;
+    }
+});
+
+    </script>
+    
+</body>
+</html>
