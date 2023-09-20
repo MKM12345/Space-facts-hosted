@@ -1,0 +1,30 @@
+{
+    "SchwarzschildRadius": {
+        "author": "Karl Schwarzschild",
+        "equation": "R_s = (2 * G * M) / c^2",
+        "steps": "1. Calculate the mass of the object (M).",
+        "answers": "The Schwarzschild radius (R_s) is given by R_s = (2 * G * M) / c^2.",
+        "more": "This equation is used to calculate the radius at which an object of mass M collapses into a black hole."
+    },
+    "HubbleLaw": {
+        "author": "Edwin Hubble",
+        "equation": "v = H0 * d",
+        "steps": "1. Measure the recessional velocity (v) of a galaxy.\n2. Measure the distance (d) to the galaxy.\n3. Use v = H0 * d, where H0 is the Hubble constant.",
+        "answers": "The Hubble law describes the expansion of the universe: v = H0 * d.",
+        "more": "It's a fundamental equation in cosmology and helps determine the age and rate of expansion of the universe."
+    },
+    "StefanBoltzmannLaw": {
+        "author": "Stefan and Boltzmann",
+        "equation": "E = σ * A * T^4",
+        "steps": "1. Measure the temperature (T) of an object in Kelvin.\n2. Use the formula E = σ * A * T^4, where σ is the Stefan-Boltzmann constant and A is the surface area.",
+        "answers": "The Stefan-Boltzmann law relates the energy radiated by a black body to its temperature and surface area: E = σ * A * T^4.",
+        "more": "It's essential in astrophysics for calculating the energy output of stars and other celestial objects."
+    },
+    "EinsteinMassEnergyEquivalence": {
+        "author": "Albert Einstein",
+        "equation": "E = mc^2",
+        "steps": "1. Identify the mass (m) of an object.\n2. Use the equation E = mc^2 to calculate the energy (E) equivalent to that mass.",
+        "answers": "The Einstein mass-energy equivalence equation states that energy (E) is equal to mass (m) times the speed of light (c) squared: E = mc^2.",
+        "more": "This equation is a cornerstone of modern physics and demonstrates the conversion of mass into energy."
+    }
+}
