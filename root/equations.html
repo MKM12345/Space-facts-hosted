@@ -574,18 +574,22 @@ main {
         }
 </style>
 <script>
-  const apiKey = 'YOUR_OPENAI_API_KEY';
+const apiKey = process.env.OPENAI_API_KEY;
 const chatlog = document.getElementById('chatlog');
 const userInput = document.getElementById('user-input');
 const submitButton = document.getElementById('submit-button');
 
 submitButton.addEventListener('click', () => {
     const userQuestion = userInput.value;
-    appendMessage('You', userQuestion);
-    fetchAnswer(userQuestion);
+    const formattedQuestion = `Astrophysics Question/Space Question: ${userQuestion}`; // Format the question
+    appendUserQuestion(formattedQuestion); // Append the formatted question
+    fetchAnswer(formattedQuestion); // Send the formatted question to ChatGPT
     userInput.value = '';
 });
 
+function appendUserQuestion(question) {
+    appendMessage('You', question); // Append the formatted question to the chat log
+}
 function appendMessage(sender, message) {
     const messageElement = document.createElement('div');
     messageElement.textContent = `${sender}: ${message}`;
@@ -662,3 +666,4 @@ function toggleTheme() {
 
 document.getElementById('themeButton').onclick = toggleTheme;
 </script>
+</html>
