@@ -1,0 +1,29 @@
+name: Your Workflow Name
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run your JavaScript code
+        run: |
+          API_KEY=$OPENAI_API_KEY
+          node script.js
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
