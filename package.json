@@ -1,0 +1,18 @@
+{
+  "name": "space-facts-hosted",
+  "version": "1.0.0",
+  "description": "An space fact website, with a astrophysics chatbot powered by OpenAI's GPT-3",
+  "main": "script.js", // Assuming your main JavaScript file is named "script.js"
+  "scripts": {
+    "start": "node script.js"
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1", // Axios for making HTTP requests
+    "express": "^4.17.1" // Express.js for serving HTML and handling API requests (if needed)
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12" // Optional: Nodemon for automatic server restart during development
+  }
+}
