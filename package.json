@@ -2,7 +2,7 @@
   "name": "space-facts-hosted",
   "version": "1.0.0",
   "description": "An space fact website, with a astrophysics chatbot powered by OpenAI's GPT-3",
-  "main": "script.js", // Assuming your main JavaScript file is named "script.js"
+  "main": "script.js",
   "scripts": {
     "start": "node script.js"
   },
