@@ -6,9 +6,8 @@ on:
       - main
 
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -19,12 +18,15 @@ jobs:
           sudo apt-get install -y nodejs
         if: success()
 
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: Install dependencies
         run: npm install
 
       - name: Run your JavaScript code
         run: |
-          API_KEY=$OPENAI_API_KEY
-          node script.js
+          API_KEY=$OPENAI_API_KEY node script.js
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
