@@ -28,13 +28,13 @@ jobs:
           node-version: '16' # Specify the desired Node.js version
 
       - name: Change working directory
-        run: cd /home/runner/work/Space-facts-hosted
+        run: cd $GITHUB_WORKSPACE
 
       - name: Install dependencies
         run: npm install
 
       - name: Run your JavaScript code
         run: |
-          API_KEY=$OPENAI_API_KEY node script.js
+          API_KEY=$OPENAI_API_KEY node $GITHUB_WORKSPACE/script.js
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
