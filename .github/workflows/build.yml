@@ -22,6 +22,14 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16' # Specify the desired Node.js version
+
+      - name: Change working directory
+        run: cd /home/runner/work/Space-facts-hosted
+
       - name: Install dependencies
         run: npm install
 
