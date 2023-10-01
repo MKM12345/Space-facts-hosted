@@ -1,4 +1,4 @@
-name: Your Workflow Name
+name: Build to HTML
 
 on:
   push:
@@ -20,6 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      # Add this step to install jsdom
+      - name: Install jsdom
+        run: npm install jsdom
 
       - name: Run your JavaScript code
         run: |
