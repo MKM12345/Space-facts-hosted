@@ -1,3 +1,9 @@
+const { JSDOM } = require('jsdom');
+const dom = new JSDOM('<!DOCTYPE html><html><body><div id="chatlog"></div></body></html>');
+
+global.window = dom.window;
+global.document = dom.window.document;
+
 const apiKey = process.env.OPENAI_API_KEY;
 const chatlog = document.getElementById('chatlog');
 const userInput = document.getElementById('user-input');
