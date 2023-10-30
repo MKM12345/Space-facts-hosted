@@ -1,70 +1,33 @@
-const { JSDOM } = require('jsdom');
-const dom = new JSDOM('<!DOCTYPE html><html><body><div id="chatlog"></div></body></html>');
+function askQuestion() {
+            const userInput = document.getElementById("user-input").value;
+            const chatlog = document.getElementById("chatlog");
 
-global.window = dom.window;
-global.document = dom.window.document;
+            // Display the user's input in the chatlog
+            chatlog.innerHTML += `<p>User: ${userInput}</p>`;
+            chatlog.scrollTop = chatlog.scrollHeight;
 
-const apiKey = process.env.OPENAI_API_KEY;
-const chatlog = document.getElementById('chatlog');
-const userInput = document.getElementById('user-input');
-const submitButton = document.getElementById('submit-button');
+            fetch('YOUR_REPLIT_APP_URL', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ input: userInput }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const responseText = data.response;
+                // Display the chatbot's response in the chatlog
+                chatlog.innerHTML += `<p>Chatbot: ${responseText}</p>`;
+                chatlog.scrollTop = chatlog.scrollHeight;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                chatlog.innerHTML += '<p>An error occurred.</p>';
+                chatlog.scrollTop = chatlog.scrollHeight;
+            });
+        }
 
-submitButton.addEventListener('click', () => {
-    const userQuestion = userInput.value;
-    const formattedQuestion = `Astrophysics Question/Space Question: ${userQuestion}`; // Format the question
-    appendUserQuestion(formattedQuestion); // Append the formatted question
-    fetchAnswer(formattedQuestion); // Send the formatted question to ChatGPT
-    userInput.value = '';
-});
-
-function appendUserQuestion(question) {
-    appendMessage('You', question); // Append the formatted question to the chat log
-}
-function appendMessage(sender, message) {
-    const messageElement = document.createElement('div');
-    messageElement.textContent = `${sender}: ${message}`;
-    chatlog.appendChild(messageElement);
-}
-
-function appendBotResponse(response) {
-    const responseElement = document.createElement('div');
-    responseElement.classList.add('typing'); // Add typing animation class
-    responseElement.textContent = `ChatGPT: ${response}`;
-    chatlog.appendChild(responseElement);
-    scrollToBottom(); // Scroll to the bottom of the chatlog
-}
-
-function scrollToBottom() {
-    chatlog.scrollTop = chatlog.scrollHeight;
-}
-
-async function fetchAnswer(question) {
-    appendBotResponse('Thinking...'); // Display typing animation
-    try {
-        const response = await getChatGPTResponse(question);
-        replaceTypingWithResponse(response);
-    } catch (error) {
-        console.error(error);
-        replaceTypingWithResponse('Sorry, there was an error. Please try again.');
-    }
-}
-
-async function getChatGPTResponse(question) {
-    const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            prompt: `In astrophysics, ${question}`,
-            max_tokens: 50, // Adjust the token limit as needed
-        }),
-    });
-    const data = await response.json();
-    return data.choices[0].text.trim();
-}
-
+        document.getElementById("submit-button").addEventListener("click", askQuestion)
 function replaceTypingWithResponse(response) {
     // Remove the typing animation class and replace text content
     const typingElements = document.querySelectorAll('.typing');
