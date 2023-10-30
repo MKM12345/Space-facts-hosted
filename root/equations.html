@@ -333,7 +333,7 @@ function askQuestion() {
     scrollToBottom(); // Scroll to the bottom to show the typing animation
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", "root/app.py", true);  // Send the request to /app.py
+    xhr.open("POST", "app.py", true);  // Send the request to /app.py
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onload = function () {
