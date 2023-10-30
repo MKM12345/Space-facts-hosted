@@ -320,44 +320,58 @@
         `;
     }
 });
-      function askQuestion() {
-            const userInput = document.getElementById("user-input").value;
-            const chatlog = document.getElementById("chatlog");
+function askQuestion() {
+    const userInput = document.getElementById("user-input").value;
+    const chatlog = document.getElementById("chatlog");
 
-            // Display the user's input in the chatlog
-            chatlog.innerHTML += `<p>User: ${userInput}</p>`;
-            chatlog.scrollTop = chatlog.scrollHeight;
+    // Display the user's input in the chatlog
+    chatlog.innerHTML += `<p>User: ${userInput}</p>`;
+    chatlog.scrollTop = chatlog.scrollHeight;
 
-            fetch('https://replit.com/@arekhonshadow/InternationalFumblingSampler#main.py', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ input: userInput }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                const responseText = data.response;
-                // Display the chatbot's response in the chatlog
-                chatlog.innerHTML += `<p>Chatbot: ${responseText}</p>`;
-                chatlog.scrollTop = chatlog.scrollHeight;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                chatlog.innerHTML += '<p>An error occurred.</p>';
-                chatlog.scrollTop = chatlog.scrollHeight;
-            });
+    // Display the typing animation
+    chatlog.innerHTML += `<p class="typing">ChatGPT is typing...</p>`;
+    scrollToBottom(); // Scroll to the bottom to show the typing animation
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/app.py", true);  // Send the request to /app.py
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            const responseText = JSON.parse(xhr.responseText).message;
+            // Remove the typing animation and display the chatbot's response
+            removeTypingAnimation();
+            chatlog.innerHTML += `<p>ChatGPT: ${responseText}</p>`;
+            scrollToBottom(); // Scroll to the bottom to show the response
+        } else {
+            console.error('Error:', xhr.status, xhr.statusText);
+            chatlog.innerHTML += '<p>An error occurred.</p>';
+            scrollToBottom();
         }
+    };
 
-        document.getElementById("submit-button").addEventListener("click", askQuestion)
-function replaceTypingWithResponse(response) {
-    // Remove the typing animation class and replace text content
+    xhr.onerror = function () {
+        console.error('Network error');
+        chatlog.innerHTML += '<p>An error occurred.</p>';
+        scrollToBottom();
+    };
+
+    xhr.send(JSON.stringify({ message: userInput }));
+}
+
+document.getElementById("submit-button").addEventListener("click", askQuestion);
+
+function scrollToBottom() {
+    const chatlog = document.getElementById("chatlog");
+    chatlog.scrollTop = chatlog.scrollHeight;
+}
+
+function removeTypingAnimation() {
     const typingElements = document.querySelectorAll('.typing');
     const lastTypingElement = typingElements[typingElements.length - 1];
-    lastTypingElement.classList.remove('typing');
-    lastTypingElement.textContent = `ChatGPT: ${response}`;
-    scrollToBottom(); // Scroll to the bottom to show the response
+    lastTypingElement.remove();
 }
+
 const themeMap = {
   dark: "light",
   light: "solar",
