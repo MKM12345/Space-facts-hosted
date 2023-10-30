@@ -9,7 +9,7 @@ API_URL = "https://api.openai.com/v1/engines/davinci-codex/completions"
 
 # Function to make a request to ChatGPT
 def request_chatgpt(prompt):
-    api_key = os.environ.get("API_KEY")
+    api_key = os.environ.get("OPENAI_API_KEY")
     headers = {
         "Authorization": f"Bearer {api_key}",
     }
