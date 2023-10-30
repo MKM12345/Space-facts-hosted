@@ -6,7 +6,7 @@ function askQuestion() {
             chatlog.innerHTML += `<p>User: ${userInput}</p>`;
             chatlog.scrollTop = chatlog.scrollHeight;
 
-            fetch('YOUR_REPLIT_APP_URL', {
+            fetch('https://replit.com/@arekhonshadow/InternationalFumblingSampler#main.py', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
